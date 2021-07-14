@@ -108,4 +108,4 @@ fn (mut app App) user(user_id int) {
 fn (mut app App) user(user User, user_id string) {
 }
 ```
-- `tea.decode_model<T>(string) takes a json string as input and decodes it into a struct
+- `tea.decode_model<T>(string)` takes a json string as input and decodes it into a struct
