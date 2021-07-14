@@ -109,3 +109,5 @@ fn (mut app App) user(user User, user_id string) {
 }
 ```
 - `tea.decode_model<T>(string)` takes a json string as input and decodes it into a struct
+- `app.url_params` exposes the url path parameters when applicable as a `map[string]string`
+  - Therefore you can have validated routes that don't take the url param i.e `:user_id` as a parameter but still access it
