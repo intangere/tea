@@ -38,7 +38,7 @@ struct User {
 }
 ```
 Define a function to check the `user` model is valid:
-```
+```go
 fn (user User) is_valid() bool {
         username := user.username.strip_margin()
         password := user.password.strip_margin()
@@ -48,7 +48,7 @@ fn (user User) is_valid() bool {
 
 ```
 Define your `/login` route:
-```
+```go
 ['/login'; post]
 fn (mut app App) login(user User) tea.Result {
         // posted user parameters will be available in user after being validated
@@ -108,3 +108,4 @@ fn (mut app App) user(user_id int) {
 fn (mut app App) user(user User, user_id string) {
 }
 ```
+- `tea.decode_model<T>(string) takes a json string as input and decodes it into a struct
