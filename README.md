@@ -90,7 +90,7 @@ tea.run(&app, 8080)
 - More than one url parameter is not supported in Vweb
 # Other notes
 - If you combine url parameters like `/user/:user_id` with other parameters, the url parameter `user_id` must be after the other parameters. i.e
-```
+```go
 // this will not compile (with or without a validator defined. However it does require one)
 ['/user/:user_id']
 fn (mut app App) user(user_id string, user User) {
