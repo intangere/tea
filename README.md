@@ -79,11 +79,11 @@ login_validator := fn (mut app App) {
 ```
 The data validator should unpack some sort of data (in this case the request json body), validate it, and depending on the result, return a validation error or pass the validated model(s) to the route.  
 Now app needs to be aware of the validator and which route to run it on. So after declaring the validator you need to add it to `app.validators`:
-```
+```go
 app.validators.validators['/login'] = login_validator
 ```
 Then just run the app like you would with Vweb:
-```
+```go
 tea.run(&app, 8080)
 ```
 # Known problems
