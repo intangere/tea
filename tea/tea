@@ -1,0 +1,50 @@
+module tea
+import json
+
+pub struct BaseModel {
+
+}
+
+pub struct VoidModel {
+
+}
+
+pub struct Request {
+pub:
+	data string
+}
+
+pub struct Router {
+pub mut:
+	routes map[string]fn(Request)
+}
+
+//type RouteSchemas = User | BaseModel | VoidModel
+
+pub fn handle_route<T>(route Route<T>, request Request) {
+	// validate data into schema
+
+	println('Route info')
+	println(route)
+
+	println('Unpacking data:' + request.data)
+
+	model := json.decode(T, request.data) or { T{} }
+	println(model)
+	//model := decode_json(route.schema, request.data)	
+	// run the handler
+	route.handler(model)	
+}
+
+pub fn (mut router Router) add_route(path string, route_func fn(Request)) {
+	router.routes[path] = route_func
+}
+
+pub struct Route<T> {
+pub:
+	handler fn(T)
+	schema T
+	path string
+}
+
+type RouteFunc = fn (Request) 
