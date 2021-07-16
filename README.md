@@ -112,3 +112,37 @@ fn (mut app App) user(user User, user_id string) {
 - `app.url_params` exposes the url path parameters when applicable as a `map[string]string`
   - Therefore you can have validated routes that don't take the url param i.e `:user_id` as a parameter but still access it
 - `tea.from_map<T>(map[string]string)` can be used to take app.query and turn it into a struct with string only fields
+
+# End goal
+Whenever compile-time reflection is more complete in V something like this should be possible which would hide most of the internals:
+```go
+import tea
+
+struct App {
+        tea.Context
+pub mut:
+        validators tea.Validators<App>
+}
+
+['/login'; post]
+fn (mut app App) login(user User) tea.Result {
+        // posted user parameters will be available in user after being validated
+        println('Username: ' + user.username + ' Password: ' + user.password)
+        app.json('{"status":"testing"}')
+}
+
+['/login'; validator]
+fn (mut app App) login_validator() User {
+        model := tea.decode_model<User>(app.req.data)
+        if !model.is_valid() {
+                app.validation_error('username or password too short')
+                return
+        }
+        return model
+}
+
+fn main() {
+        mut app := App{}
+        tea.run(&app, 8080)
+}
+```
